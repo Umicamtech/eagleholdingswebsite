@@ -3,7 +3,7 @@ import styles from "./Services.module.css";
 const services = [
   {
     title: "Public Infrastructure & Institutional Capital",
-    body: "Implementing long-form participation models through BOT and BOO frameworks. We navigate FDI to anchor high-capacity civil assets and public-private partnerships.",
+    body: "Implementing long-form participation models. We navigate FDI to anchor high-capacity civil assets and public-private partnerships.",
     delay: "delay-1",
   },
   {
@@ -13,7 +13,7 @@ const services = [
   },
   {
     title: "Global Mobility & Sustainable Solutions",
-    body: "Facilitating seamless relocation, repatriation, and lifestyle transitions—with a specialized focus on Ghana. We provide comprehensive advisory and resource-optimized housing for the diaspora.",
+    body: "Facilitating seamless relocation, repatriation, and lifestyle transitions—with a specialized focus on Africa. We provide comprehensive advisory and resource-optimized housing for the diaspora.",
     delay: "delay-3",
   },
 ];
