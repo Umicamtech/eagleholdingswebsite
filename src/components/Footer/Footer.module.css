@@ -1,0 +1,32 @@
+.footer {
+  padding: var(--spacing-xl);
+  background-color: var(--obsidian);
+  border-top: 1px solid rgba(229, 228, 226, 0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.securityText {
+  font-size: 0.9rem;
+  color: var(--platinum);
+  opacity: 0.6;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.registrationText {
+  font-size: 0.8rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  opacity: 0.4;
+  margin-top: var(--spacing-md);
+}
