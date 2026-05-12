@@ -18,6 +18,9 @@ export default function Header() {
       </div>
       
       <div className={styles.navActions}>
+        <Link href="/contact" className={styles.navLink}>
+          Contact
+        </Link>
         <Link href="/partner-login" className={styles.buttonPrimary}>
           Partner Login
         </Link>

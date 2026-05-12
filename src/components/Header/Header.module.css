@@ -35,7 +35,21 @@
 
 .navActions {
   display: flex;
-  gap: var(--spacing-md);
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.navLink {
+  color: var(--obsidian);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--gold);
 }
 
 .buttonPrimary {
