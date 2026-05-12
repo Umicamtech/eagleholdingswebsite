@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap');
+
 :root {
-  --obsidian: #0b0c10;
-  --deep-slate: #1f2833;
-  --platinum: #e5e4e2;
-  --gold: #d4af37;
-  --accent-gold: #c5a028;
+  --obsidian: #1a1a1a;
+  --deep-slate: #fcfcfc;
+  --platinum: #4a4a4a;
+  --gold: #A58B3E;
+  --accent-gold: #c2a657;
   --white: #ffffff;
-  --background: var(--obsidian);
-  --foreground: var(--platinum);
+  --background: var(--white);
+  --foreground: var(--obsidian);
   
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -36,9 +38,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
-  color: var(--gold);
+  color: var(--obsidian);
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.brand-font {
+  font-family: 'Stardos Stencil', serif;
 }
 
 a {

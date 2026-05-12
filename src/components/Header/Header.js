@@ -9,12 +9,12 @@ export default function Header() {
         <Image 
           src="/logo.png" 
           alt="Eagle Holdings Logo" 
-          width={50} 
-          height={50} 
+          width={65} 
+          height={65} 
           className={styles.logoImage}
           priority
         />
-        <span className={styles.brandName}>EAGLE HOLDINGS</span>
+        <span className={`${styles.brandName} brand-font`}>EAGLE HOLDINGS</span>
       </div>
       
       <div className={styles.navActions}>

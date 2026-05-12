@@ -3,14 +3,15 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-md) var(--spacing-xl);
-  background-color: rgba(11, 12, 16, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(229, 228, 226, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logoContainer {
@@ -20,17 +21,16 @@
 }
 
 .logoImage {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
 }
 
 .brandName {
-  font-family: var(--font-playfair);
-  font-size: 1.5rem;
-  letter-spacing: 0.1em;
-  color: var(--platinum);
-  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  color: var(--obsidian);
+  font-weight: 700;
 }
 
 .navActions {
@@ -39,8 +39,8 @@
 }
 
 .buttonPrimary {
-  background-color: var(--gold);
-  color: var(--obsidian);
+  background-color: var(--obsidian);
+  color: var(--white);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-weight: 600;
@@ -50,13 +50,14 @@
 }
 
 .buttonPrimary:hover {
-  background-color: var(--accent-gold);
+  background-color: var(--gold);
+  color: var(--white);
   transform: translateY(-2px);
 }
 
 .buttonSecondary {
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--obsidian);
+  color: var(--obsidian);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-weight: 600;
@@ -66,7 +67,7 @@
 }
 
 .buttonSecondary:hover {
-  background-color: rgba(212, 175, 55, 0.1);
+  background-color: rgba(26, 26, 26, 0.05);
   transform: translateY(-2px);
 }
 
