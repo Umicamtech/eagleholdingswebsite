@@ -7,7 +7,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.logoContainer}>
         <Image 
-          src="/logo.png" 
+          src="/eagle-logo.png" 
           alt="Eagle Holdings Logo" 
           width={65} 
           height={65} 

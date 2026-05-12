@@ -6,7 +6,30 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-lg);
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.logoImage {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Make it white to contrast with dark footer */
+}
+
+.brandName {
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  font-weight: 700;
 }
 
 .securityText {
