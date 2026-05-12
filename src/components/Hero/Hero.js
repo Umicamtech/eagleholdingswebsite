@@ -4,7 +4,6 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
-        <div className={`${styles.badge} fade-in`}>Est. 2024</div>
         <h1 className={`${styles.headline} fade-in delay-1`}>
           The Standard for Global Strategic Advisory.
         </h1>
