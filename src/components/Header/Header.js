@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 export default function Header() {
   return (
     <header className={styles.header}>
-      <div className={styles.logoContainer}>
+      <Link href="/" className={styles.logoContainer}>
         <Image 
           src="/eagle-logo.png" 
           alt="Eagle Holdings Logo" 
@@ -15,7 +15,7 @@ export default function Header() {
           priority
         />
         <span className={`${styles.brandName} brand-font`}>EAGLE HOLDINGS</span>
-      </div>
+      </Link>
       
       <div className={styles.navActions}>
         <Link href="/contact" className={styles.navLink}>
