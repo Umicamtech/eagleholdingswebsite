@@ -3,15 +3,15 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-md) var(--spacing-xl);
-  background-color: rgba(11, 12, 16, 0.95);
-  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .logoContainer {
@@ -21,8 +21,8 @@
 }
 
 .logoImage {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
 }
 
@@ -36,12 +36,26 @@
 
 .navActions {
   display: flex;
-  gap: var(--spacing-md);
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.navLink {
+  color: var(--obsidian);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--gold);
 }
 
 .buttonPrimary {
-  background-color: var(--gold);
-  color: var(--obsidian);
+  background-color: var(--obsidian);
+  color: var(--white);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-weight: 600;
@@ -55,7 +69,8 @@
 }
 
 .buttonPrimary:hover {
-  background-color: var(--accent-gold);
+  background-color: var(--gold);
+  color: var(--white);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
@@ -65,8 +80,8 @@
 }
 
 .buttonSecondary {
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--obsidian);
+  color: var(--obsidian);
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-weight: 600;
@@ -78,7 +93,7 @@
 }
 
 .buttonSecondary:hover {
-  background-color: rgba(212, 175, 55, 0.15);
+  background-color: rgba(26, 26, 26, 0.05);
   transform: translateY(-2px);
   border-color: var(--accent-gold);
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);

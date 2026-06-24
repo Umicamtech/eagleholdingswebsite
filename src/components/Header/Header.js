@@ -5,19 +5,22 @@ import styles from "./Header.module.css";
 export default function Header() {
   return (
     <header className={styles.header}>
-      <div className={styles.logoContainer}>
+      <Link href="/" className={styles.logoContainer}>
         <Image 
           src="/eagle-logo.png" 
           alt="Eagle Holdings Logo" 
-          width={50} 
-          height={50} 
+          width={65} 
+          height={65} 
           className={styles.logoImage}
           priority
         />
-        <span className={styles.brandName}>EAGLE HOLDINGS</span>
-      </div>
+        <span className={`${styles.brandName} brand-font`}>EAGLE HOLDINGS</span>
+      </Link>
       
       <div className={styles.navActions}>
+        <Link href="/contact" className={styles.navLink}>
+          Contact
+        </Link>
         <Link href="/partner-login" className={styles.buttonPrimary}>
           Partner Login
         </Link>
