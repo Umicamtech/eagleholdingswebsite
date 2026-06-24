@@ -14,9 +14,8 @@ const services = [
     delay: "delay-2",
   },
   {
-    title: "Global Mobility & Sustainable Solutions",
-    body: "Facilitating seamless relocation, repatriation, and lifestyle transitions—with a specialized focus on Africa. We provide comprehensive advisory.",
-    features: ["Diaspora Repatriation", "Resource-Optimized Housing", "Expatriate Logistics"],
+    title: "International Development & Strategic Mobility",
+    body: "Facilitating sophisticated global transitions and sustainable asset development. We deliver comprehensive advisory services designed to seamlessly bridge international capital with emerging market infrastructure.",
     delay: "delay-3",
   },
 ];
