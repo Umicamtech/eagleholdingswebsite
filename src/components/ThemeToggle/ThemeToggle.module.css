@@ -1,0 +1,67 @@
+.toggleBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  color: var(--platinum);
+}
+
+.toggleBtn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* We use a specific light selector just for the button border on light mode if needed */
+:global([data-theme='light']) .toggleBtn {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme='light']) .toggleBtn:hover {
+  border-color: var(--gold);
+}
+
+.iconContainer {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun, .moon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Default (Dark Mode) - Moon is visible, Sun is hidden/scaled down */
+.sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+
+.moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* Light Mode - Sun is visible, Moon is hidden */
+.iconContainer.light .sun {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+.iconContainer.light .moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0);
+}

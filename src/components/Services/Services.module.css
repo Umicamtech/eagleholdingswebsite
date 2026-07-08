@@ -1,92 +1,207 @@
 .servicesSection {
-  padding: var(--spacing-xxl) var(--spacing-xl);
+  padding: var(--spacing-xxl) 0;
   background-color: var(--obsidian);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-xl);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.card {
-  background-color: var(--deep-slate);
-  padding: var(--spacing-xl) var(--spacing-lg);
-  border: 1px solid rgba(212, 175, 55, 0.08);
-  border-radius: 8px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
   position: relative;
-  background: linear-gradient(135deg, rgba(31, 40, 51, 1) 0%, rgba(11, 12, 16, 0.5) 100%);
-  backdrop-filter: blur(8px);
 }
 
-.card::before {
+.bgGrid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--bg-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-faint) 1px, transparent 1px);
+  background-size: 100px 100px;
+  background-position: center;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.bgGrid::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 0%, var(--obsidian) 70%);
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-xxl);
+  align-items: start;
+}
+
+.header {
+  position: sticky;
+  top: 150px;
+}
+
+.headerLine {
+  width: 2px;
+  height: 80px;
+  background: var(--gold);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  color: var(--white);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stackWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  padding-bottom: 20vh;
+}
+
+.plate {
+  position: sticky;
+  padding: 1px;
+  border-radius: 4px;
+  background: var(--bg-plate);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+  transform-origin: center right;
+  z-index: 1;
+}
+
+.plate:hover {
+  transform: translateX(-20px) scale(1.02);
+  z-index: 10;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), transparent 50%);
+  box-shadow: -20px 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.plateGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at right center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
   opacity: 0;
-  transition: opacity 0.4s ease-out;
+  transition: opacity 0.6s ease;
   pointer-events: none;
 }
 
-.card:hover {
-  border-color: var(--gold);
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15), 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-.card:hover::before {
+.plate:hover .plateGlow {
   opacity: 1;
 }
 
-.cardTitle {
-  font-size: 1.5rem;
-  line-height: 1.3;
+.plateContent {
+  background: var(--obsidian);
+  border-radius: 3px;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--border-faint);
+  border-top: 1px solid var(--gold-alpha-30);
+  box-shadow: var(--plate-shadow);
+  position: relative;
+  z-index: 2;
 }
 
-.cardBody {
+.plateHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.plateNumber {
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  line-height: 1.6;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.plateDivider {
+  flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.3), transparent);
+}
+
+.plateTitle {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.2;
+}
+
+.plateText {
+  font-size: 1.1rem;
+  line-height: 1.7;
   color: var(--platinum);
   opacity: 0.7;
+  max-width: 90%;
+  margin-bottom: var(--spacing-xl);
 }
 
-@media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+.plateAction {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+}
+
+.actionText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: color 0.4s ease;
+}
+
+.actionArrow {
+  color: var(--gold);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.plate:hover .actionArrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+  }
+  
+  .header {
+    position: relative;
+    top: 0;
+  }
+  
+  .plate:hover {
+    transform: translateX(0) scale(1.02);
   }
 }
 
 @media (max-width: 768px) {
-  .servicesSection {
-    padding: var(--spacing-xl) var(--spacing-lg);
+  .container {
+    padding: 0 var(--spacing-md);
   }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .card {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .cardTitle {
-    font-size: 1.25rem;
-  }
-
-  .cardBody {
-    font-size: 0.95rem;
+  .plateContent {
+    padding: var(--spacing-lg);
   }
 }
