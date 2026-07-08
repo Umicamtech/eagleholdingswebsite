@@ -7,17 +7,38 @@ const services = [
   {
     title: "Public Infrastructure & Institutional Capital",
     body: "Implementing long-form participation models. We navigate FDI to anchor high-capacity civil assets and public-private partnerships.",
-    number: "01"
+    number: "01",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+        <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+        <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+        <path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>
+      </svg>
+    )
   },
   {
     title: "Private Enterprise & Strategic Assets",
     body: "Driving commercial success across diverse sectors, including high-value real estate, retail development, and international import/export operations.",
-    number: "02"
+    number: "02",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+      </svg>
+    )
   },
   {
     title: "International Development & Strategic Mobility",
     body: "Facilitating sophisticated global transitions and sustainable asset development. We deliver comprehensive advisory services designed to seamlessly bridge international capital with emerging market infrastructure.",
-    number: "03"
+    number: "03",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+        <path d="M2 12h20"/>
+      </svg>
+    )
   },
 ];
 
@@ -105,7 +126,12 @@ export default function Services() {
                   <div className={styles.cardGlow}></div>
                   <div className={styles.cardContent}>
                     <div className={styles.cardTop}>
-                      <span className={styles.cardNumber}>{service.number}</span>
+                      <div className={styles.cardHeaderInfo}>
+                        <span className={styles.cardNumber}>{service.number}</span>
+                        <div className={styles.iconContainer}>
+                          {service.icon}
+                        </div>
+                      </div>
                       <div className={styles.cardDivider}></div>
                     </div>
                     <div className={styles.cardBody}>

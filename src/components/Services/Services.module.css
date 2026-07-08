@@ -180,6 +180,21 @@
   margin-bottom: var(--spacing-lg);
 }
 
+.cardHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
 .cardNumber {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
