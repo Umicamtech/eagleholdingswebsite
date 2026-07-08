@@ -21,6 +21,8 @@ export default function Hero() {
           muted
           loop
           playsInline
+          preload="metadata"
+          disablePictureInPicture
         >
           <source src="https://cdn.jsdelivr.net/npm/videos-for-web/dist/gradient.webm" type="video/webm" />
         </video>
@@ -37,7 +39,11 @@ export default function Hero() {
               Leading public infrastructure development, private enterprise, and comprehensive global mobility.
             </p>
             <div className={`${styles.actions} fade-in delay-3`}>
-              <button className={styles.primaryAction} onClick={scrollToCapabilities}>
+              <button 
+                className={styles.primaryAction} 
+                onClick={scrollToCapabilities}
+                aria-label="Explore Eagle Holdings Capabilities"
+              >
                 <span className={styles.buttonText}>Explore Capabilities</span>
                 <span className={styles.buttonLine}></span>
               </button>

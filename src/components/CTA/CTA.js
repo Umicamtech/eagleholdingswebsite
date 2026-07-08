@@ -15,7 +15,11 @@ export default function CTA() {
             Engage with our strategic advisory team to navigate complex capital requirements and secure definitive outcomes.
           </p>
           <div className={`${styles.actions} fade-in delay-3`}>
-            <Link href="/contact" className={styles.primaryButton}>
+            <Link 
+              href="/contact" 
+              className={styles.primaryButton}
+              aria-label="Initiate Consultation with Eagle Holdings"
+            >
               <span className={styles.buttonText}>Initiate Consultation</span>
               <span className={styles.buttonLine}></span>
             </Link>
