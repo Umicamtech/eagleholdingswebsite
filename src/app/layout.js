@@ -47,6 +47,9 @@ const jsonLd = {
     "contactType": "customer service"
   }
 };
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light" className={`${inter.variable} ${playfair.variable}`}>
@@ -58,6 +61,8 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
