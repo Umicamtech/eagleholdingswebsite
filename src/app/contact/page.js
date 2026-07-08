@@ -23,6 +23,7 @@ export default function ContactPage() {
   });
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const altchaRef = useRef(null);
 
   // Load the Altcha web component from CDN (no npm package needed)
@@ -44,6 +45,13 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
+
+    // Privacy consent check
+    if (!privacyConsent) {
+      setStatus('error');
+      setErrorMsg('Please confirm you have read and agree to our Privacy Policy.');
+      return;
+    }
 
     // Grab the Altcha payload from the widget's hidden input
     const altchaPayload = altchaRef.current?.value || null;
@@ -182,6 +190,25 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                   />
+                </div>
+
+                {/* Privacy Policy consent */}
+                <div className={styles.consentRow}>
+                  <input
+                    type="checkbox"
+                    id="privacyConsent"
+                    className={styles.checkbox}
+                    checked={privacyConsent}
+                    onChange={(e) => setPrivacyConsent(e.target.checked)}
+                    required
+                  />
+                  <label htmlFor="privacyConsent" className={styles.consentLabel}>
+                    I have read and agree to the{' '}
+                    <a href="/privacy-policy" className={styles.consentLink} target="_blank" rel="noopener noreferrer">
+                      Privacy Policy
+                    </a>
+                    {' '}and consent to Eagle Holdings processing my personal data for the purpose of this inquiry.
+                  </label>
                 </div>
 
                 {/* Altcha CAPTCHA widget */}

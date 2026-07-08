@@ -1,31 +1,31 @@
 // src/app/api/altcha/route.js
-// Serves fresh ALTCHA proof-of-work challenges using Node built-in crypto — no npm package needed.
+// Serves ALTCHA proof-of-work challenges.
+// Protocol: challenge = SHA-256(salt + number), signature = HMAC-SHA-256(secret, challenge)
 
-import { createHmac, randomBytes } from 'crypto';
+import { createHmac, createHash, randomBytes } from 'crypto';
 
 const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET || 'dev-secret-change-in-production';
-const MAX_NUMBER = 100000; // PoW difficulty — increase to slow down bots further
+const MAX_NUMBER = 50000; // PoW difficulty
 
-function createChallenge() {
+export async function GET() {
   const salt = randomBytes(12).toString('hex');
   const number = Math.floor(Math.random() * MAX_NUMBER);
-  const algorithm = 'SHA-256';
-  const challenge = createHmac('sha256', HMAC_SECRET)
+
+  // Challenge = plain SHA-256 hash (not HMAC) — this is what the widget solves
+  const challenge = createHash('sha256')
     .update(`${salt}${number}`)
     .digest('hex');
+
+  // Signature = HMAC-SHA-256 of the challenge, used to verify server issued it
   const signature = createHmac('sha256', HMAC_SECRET)
     .update(challenge)
     .digest('hex');
 
-  return {
-    algorithm,
+  return Response.json({
+    algorithm: 'SHA-256',
     challenge,
     maxnumber: MAX_NUMBER,
     salt,
     signature,
-  };
-}
-
-export async function GET() {
-  return Response.json(createChallenge());
+  });
 }

@@ -5,11 +5,14 @@
 // EMAIL SETUP: Replace the sendEmail() stub below with your preferred provider
 // (e.g. SendGrid, Mailgun, AWS SES, Nodemailer + SMTP, etc.)
 
-import { createHmac } from 'crypto';
+import { createHmac, createHash } from 'crypto';
 
 const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET || 'dev-secret-change-in-production';
 
-// ─── Altcha verification (pure crypto — no npm package) ─────────────────────
+// ─── Altcha verification ─────────────────────────────────────────────────────
+// Protocol:
+//   challenge  = SHA-256(salt + number)   — plain hash, solved by the widget
+//   signature  = HMAC-SHA-256(secret, challenge) — proves server issued the challenge
 function verifyAltcha(payload) {
   try {
     const decoded = JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
@@ -17,11 +20,12 @@ function verifyAltcha(payload) {
 
     if (algorithm !== 'SHA-256') return false;
 
-    // Re-derive the expected challenge and signature
-    const expectedChallenge = createHmac('sha256', HMAC_SECRET)
+    // 1. Recompute the challenge hash from salt + number
+    const expectedChallenge = createHash('sha256')
       .update(`${salt}${number}`)
       .digest('hex');
 
+    // 2. Recompute the HMAC signature of the challenge
     const expectedSignature = createHmac('sha256', HMAC_SECRET)
       .update(expectedChallenge)
       .digest('hex');
