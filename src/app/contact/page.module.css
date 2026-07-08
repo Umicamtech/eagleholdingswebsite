@@ -148,6 +148,32 @@
   line-height: 1.7;
 }
 
+/* ─── Altcha captcha ─── */
+.captchaWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Blend the widget into the page theme */
+.captchaWrapper altcha-widget {
+  --altcha-border-color: var(--border-faint);
+  --altcha-border-radius: 4px;
+  --altcha-color-text: var(--foreground);
+  --altcha-color-base: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
+
+/* ─── Error message ─── */
+.errorMsg {
+  font-size: 0.9rem;
+  color: #c0392b;
+  padding: 12px 16px;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: 4px;
+  background: rgba(192, 57, 43, 0.05);
+}
+
 /* ─── Form footer ─── */
 .formFooter {
   display: flex;

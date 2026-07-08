@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import styles from './page.module.css';
@@ -21,16 +21,58 @@ export default function ContactPage() {
     inquiryType: '',
     message: '',
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('');
+  const altchaRef = useRef(null);
+
+  // Dynamically load the Altcha web component (it's a custom element)
+  useEffect(() => {
+    import('altcha-lib/dist/altcha.js').catch(() => {
+      // Fallback: load from CDN if local import fails
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js';
+      script.type = 'module';
+      script.async = true;
+      document.head.appendChild(script);
+    });
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: wire to backend / email service
-    setSubmitted(true);
+    setStatus('loading');
+    setErrorMsg('');
+
+    // Grab the Altcha payload from the widget's hidden input
+    const altchaPayload = altchaRef.current?.value || null;
+
+    if (!altchaPayload) {
+      setStatus('error');
+      setErrorMsg('Please complete the security check before submitting.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, altcha: altchaPayload }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed.');
+      }
+
+      setStatus('success');
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err.message);
+    }
   };
 
   return (
@@ -55,7 +97,7 @@ export default function ContactPage() {
         <section className={styles.formSection}>
           <div className={styles.container}>
 
-            {submitted ? (
+            {status === 'success' ? (
               <div className={styles.successState}>
                 <div className={styles.successIcon}>✓</div>
                 <h2 className={styles.successTitle}>Submission Received</h2>
@@ -72,10 +114,7 @@ export default function ContactPage() {
                   <div className={styles.field}>
                     <label className={styles.label} htmlFor="name">Full Name *</label>
                     <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
+                      id="name" name="name" type="text" required
                       placeholder="Your full name"
                       className={styles.input}
                       value={formData.name}
@@ -85,9 +124,7 @@ export default function ContactPage() {
                   <div className={styles.field}>
                     <label className={styles.label} htmlFor="organization">Organization</label>
                     <input
-                      id="organization"
-                      name="organization"
-                      type="text"
+                      id="organization" name="organization" type="text"
                       placeholder="Company or institution"
                       className={styles.input}
                       value={formData.organization}
@@ -101,10 +138,7 @@ export default function ContactPage() {
                   <div className={styles.field}>
                     <label className={styles.label} htmlFor="email">Email Address *</label>
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
+                      id="email" name="email" type="email" required
                       placeholder="your@email.com"
                       className={styles.input}
                       value={formData.email}
@@ -114,9 +148,7 @@ export default function ContactPage() {
                   <div className={styles.field}>
                     <label className={styles.label} htmlFor="phone">Phone Number</label>
                     <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
+                      id="phone" name="phone" type="tel"
                       placeholder="+1 (000) 000-0000"
                       className={styles.input}
                       value={formData.phone}
@@ -129,9 +161,7 @@ export default function ContactPage() {
                 <div className={styles.field}>
                   <label className={styles.label} htmlFor="inquiryType">Area of Inquiry *</label>
                   <select
-                    id="inquiryType"
-                    name="inquiryType"
-                    required
+                    id="inquiryType" name="inquiryType" required
                     className={`${styles.input} ${styles.select}`}
                     value={formData.inquiryType}
                     onChange={handleChange}
@@ -147,10 +177,7 @@ export default function ContactPage() {
                 <div className={styles.field}>
                   <label className={styles.label} htmlFor="message">Your Message *</label>
                   <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={6}
+                    id="message" name="message" required rows={6}
                     placeholder="Describe your strategic objectives, capital requirements, or the nature of your engagement..."
                     className={`${styles.input} ${styles.textarea}`}
                     value={formData.message}
@@ -158,12 +185,35 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {/* Altcha CAPTCHA widget */}
+                <div className={styles.captchaWrapper}>
+                  {/*
+                    altcha-widget is a web component.
+                    challengeurl points to our own API — no third-party tracking.
+                    The widget silently runs a proof-of-work in the browser.
+                  */}
+                  <altcha-widget
+                    ref={altchaRef}
+                    challengeurl="/api/altcha"
+                    style={{ '--altcha-color-base': 'transparent' }}
+                  ></altcha-widget>
+                </div>
+
+                {/* Error */}
+                {status === 'error' && (
+                  <p className={styles.errorMsg}>{errorMsg}</p>
+                )}
+
                 <div className={styles.formFooter}>
                   <p className={styles.disclaimer}>
                     All communications are treated with strict confidentiality.
                   </p>
-                  <button type="submit" className={styles.submitBtn}>
-                    <span>Submit Inquiry</span>
+                  <button
+                    type="submit"
+                    className={styles.submitBtn}
+                    disabled={status === 'loading'}
+                  >
+                    <span>{status === 'loading' ? 'Sending…' : 'Submit Inquiry'}</span>
                     <span className={styles.btnLine}></span>
                   </button>
                 </div>
