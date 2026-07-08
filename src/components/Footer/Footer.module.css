@@ -30,3 +30,24 @@
   opacity: 0.4;
   margin-top: var(--spacing-md);
 }
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.legalLink {
+  font-size: 0.8rem;
+  color: var(--platinum);
+  opacity: 0.5;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.legalLink:hover {
+  opacity: 1;
+  color: var(--gold);
+}
