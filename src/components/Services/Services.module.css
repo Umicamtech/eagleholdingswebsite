@@ -39,12 +39,12 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--spacing-xxl);
-  align-items: start;
 }
 
 .header {
   position: sticky;
   top: 150px;
+  align-self: start;
 }
 
 .headerLine {
