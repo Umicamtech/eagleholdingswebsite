@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.logoContainer}>
+        <Link href="/" className={styles.logoContainer} style={{ textDecoration: 'none' }}>
           <span className={styles.brandName}>EAGLE</span>
           <Image 
             src="/eagle-icon.png" 
@@ -18,15 +18,15 @@ export default function Header() {
             priority
           />
           <span className={styles.brandName}>HOLDINGS</span>
-        </div>
+        </Link>
         
         <div className={styles.navActions}>
           <ThemeToggle />
           <Link href="/partner-login" className={styles.buttonPrimary}>
             Partner Login
           </Link>
-          <Link href="/request-credentials" className={styles.buttonSecondary}>
-            Request Credentials
+          <Link href="/contact" className={styles.buttonPrimary}>
+            Contact
           </Link>
         </div>
       </div>

@@ -1,68 +1,77 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import Link from "next/link";
+import styles from "./page.module.css";
+
+export const metadata = {
+  title: 'Partner Login | Eagle Holdings',
+  description: 'Secure access to global strategic briefings and project data.',
+};
 
 export default function PartnerLogin() {
   return (
-    <main>
+    <>
       <Header />
-      <section style={{ 
-        minHeight: '80vh', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        padding: '8rem 2rem'
-      }}>
-        <h2 style={{ marginBottom: '2rem' }}>Partner Portal</h2>
-        <div style={{ 
-          backgroundColor: 'var(--deep-slate)', 
-          padding: '4rem', 
-          borderRadius: '8px', 
-          border: '1px solid var(--gold)',
-          maxWidth: '500px',
-          width: '100%',
-          textAlign: 'center'
-        }}>
-          <p style={{ marginBottom: '2rem', opacity: 0.7 }}>
-            Secure access to global strategic briefings and project data.
-          </p>
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <input 
-              type="text" 
-              placeholder="Partner ID" 
-              style={{ 
-                padding: '1rem', 
-                backgroundColor: 'var(--obsidian)', 
-                border: '1px solid rgba(229, 228, 226, 0.2)', 
-                color: 'var(--platinum)',
-                borderRadius: '4px'
-              }} 
-            />
-            <input 
-              type="password" 
-              placeholder="Security Key" 
-              style={{ 
-                padding: '1rem', 
-                backgroundColor: 'var(--obsidian)', 
-                border: '1px solid rgba(229, 228, 226, 0.2)', 
-                color: 'var(--platinum)',
-                borderRadius: '4px'
-              }} 
-            />
-            <button style={{ 
-              backgroundColor: 'var(--gold)', 
-              color: 'var(--obsidian)', 
-              padding: '1rem', 
-              borderRadius: '4px',
-              fontWeight: '600',
-              marginTop: '1rem'
-            }}>
-              Authenticate
-            </button>
-          </form>
+      <main className={styles.main}>
+
+        {/* ─── Hero strip ─── */}
+        <div className={styles.heroStrip}>
+          <div className={styles.bgGrid}></div>
+          <div className={styles.heroContent}>
+            <div className={styles.goldLine}></div>
+            <h1 className={styles.pageTitle}>Partner Portal</h1>
+            <p className={styles.pageSubtitle}>
+              Secure access to global strategic briefings and proprietary project data.
+              Authentication required.
+            </p>
+          </div>
         </div>
-      </section>
+
+        {/* ─── Form section ─── */}
+        <section className={styles.formSection}>
+          <div className={styles.container}>
+            <form className={styles.form}>
+              
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="partnerId">Partner ID</label>
+                <input 
+                  id="partnerId"
+                  name="partnerId"
+                  type="text" 
+                  placeholder="Enter your credential ID" 
+                  className={styles.input}
+                  required
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="securityKey">Security Key</label>
+                <input 
+                  id="securityKey"
+                  name="securityKey"
+                  type="password" 
+                  placeholder="••••••••••••" 
+                  className={styles.input}
+                  required
+                />
+              </div>
+
+              <div className={styles.formFooter}>
+                <Link href="/request-credentials" className={styles.secondaryLink}>
+                  Don't have an account? <span>Request Credentials</span>
+                </Link>
+                <button type="button" className={styles.submitBtn}>
+                  <span>Authenticate</span>
+                  <span className={styles.btnLine}></span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </section>
+
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

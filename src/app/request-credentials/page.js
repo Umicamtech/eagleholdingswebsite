@@ -1,67 +1,103 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import styles from "./page.module.css";
+
+export const metadata = {
+  title: 'Request Credentials | Eagle Holdings',
+  description: 'Request access to the Eagle Holdings Partner Portal.',
+};
 
 export default function RequestCredentials() {
   return (
-    <main>
+    <>
       <Header />
-      <section style={{ 
-        minHeight: '80vh', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        padding: '8rem 2rem'
-      }}>
-        <h2 style={{ marginBottom: '2rem' }}>Credential Request</h2>
-        <div style={{ 
-          backgroundColor: 'var(--deep-slate)', 
-          padding: '4rem', 
-          borderRadius: '8px', 
-          border: '1px solid var(--gold)',
-          maxWidth: '600px',
-          width: '100%',
-          textAlign: 'center'
-        }}>
-          <p style={{ marginBottom: '2rem', opacity: 0.7 }}>
-            New stakeholders may request access to the Partner Portal. Each request undergoes a rigorous verification process.
-          </p>
-          <form style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', textAlign: 'left' }}>
-            <input 
-              type="text" 
-              placeholder="First Name" 
-              style={{ padding: '1rem', backgroundColor: 'var(--obsidian)', border: '1px solid rgba(229, 228, 226, 0.2)', color: 'var(--platinum)', borderRadius: '4px' }} 
-            />
-            <input 
-              type="text" 
-              placeholder="Last Name" 
-              style={{ padding: '1rem', backgroundColor: 'var(--obsidian)', border: '1px solid rgba(229, 228, 226, 0.2)', color: 'var(--platinum)', borderRadius: '4px' }} 
-            />
-            <input 
-              type="email" 
-              placeholder="Corporate Email" 
-              style={{ padding: '1rem', backgroundColor: 'var(--obsidian)', border: '1px solid rgba(229, 228, 226, 0.2)', color: 'var(--platinum)', borderRadius: '4px', gridColumn: 'span 2' }} 
-            />
-            <textarea 
-              placeholder="Purpose of Request" 
-              rows="4"
-              style={{ padding: '1rem', backgroundColor: 'var(--obsidian)', border: '1px solid rgba(229, 228, 226, 0.2)', color: 'var(--platinum)', borderRadius: '4px', gridColumn: 'span 2' }} 
-            ></textarea>
-            <button style={{ 
-              backgroundColor: 'var(--gold)', 
-              color: 'var(--obsidian)', 
-              padding: '1rem', 
-              borderRadius: '4px',
-              fontWeight: '600',
-              gridColumn: 'span 2',
-              marginTop: '1rem'
-            }}>
-              Submit Request
-            </button>
-          </form>
+      <main className={styles.main}>
+
+        {/* ─── Hero strip ─── */}
+        <div className={styles.heroStrip}>
+          <div className={styles.bgGrid}></div>
+          <div className={styles.heroContent}>
+            <div className={styles.goldLine}></div>
+            <h1 className={styles.pageTitle}>Credential Request</h1>
+            <p className={styles.pageSubtitle}>
+              New stakeholders may request access to the Partner Portal. Each request undergoes 
+              a rigorous verification process before credentials are issued.
+            </p>
+          </div>
         </div>
-      </section>
+
+        {/* ─── Form section ─── */}
+        <section className={styles.formSection}>
+          <div className={styles.container}>
+            <form className={styles.form}>
+              
+              {/* Row 1 */}
+              <div className={styles.row}>
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="firstName">First Name *</label>
+                  <input 
+                    id="firstName"
+                    name="firstName"
+                    type="text" 
+                    placeholder="Enter your first name" 
+                    className={styles.input}
+                    required
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="lastName">Last Name *</label>
+                  <input 
+                    id="lastName"
+                    name="lastName"
+                    type="text" 
+                    placeholder="Enter your last name" 
+                    className={styles.input}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Corporate Email */}
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="email">Corporate Email *</label>
+                <input 
+                  id="email"
+                  name="email"
+                  type="email" 
+                  placeholder="name@company.com" 
+                  className={styles.input}
+                  required
+                />
+              </div>
+
+              {/* Purpose */}
+              <div className={styles.field}>
+                <label className={styles.label} htmlFor="purpose">Purpose of Request *</label>
+                <textarea 
+                  id="purpose"
+                  name="purpose"
+                  placeholder="Please describe your affiliation and reason for requiring portal access..." 
+                  className={`${styles.input} ${styles.textarea}`}
+                  required
+                />
+              </div>
+
+              <div className={styles.formFooter}>
+                <p className={styles.disclaimer}>
+                  Credentials will be issued only to verified stakeholders. Access is monitored and strictly audited.
+                </p>
+                <button type="button" className={styles.submitBtn}>
+                  <span>Submit Request</span>
+                  <span className={styles.btnLine}></span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </section>
+
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
