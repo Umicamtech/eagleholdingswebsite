@@ -7,7 +7,12 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logoContainer} style={{ textDecoration: 'none' }}>
+        <Link 
+          href="/" 
+          className={styles.logoContainer} 
+          style={{ textDecoration: 'none' }}
+          aria-label="Eagle Holdings Homepage"
+        >
           <span className={styles.brandName}>EAGLE</span>
           <Image 
             src="/eagle-icon.png" 
