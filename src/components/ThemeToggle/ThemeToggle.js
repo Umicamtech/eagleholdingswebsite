@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import styles from './ThemeToggle.module.css';
 
 export default function ThemeToggle() {
-  const [isLight, setIsLight] = useState(false);
+  const [isLight, setIsLight] = useState(true);
 
   useEffect(() => {
     // Check if user has a preference saved or check OS preference (optional)
-    // For now, default to dark.
+    // For now, default to light since it's hardcoded in layout.js
     const root = document.documentElement;
-    if (root.getAttribute('data-theme') === 'light') {
-      setIsLight(true);
+    if (root.getAttribute('data-theme') !== 'light') {
+      setIsLight(false);
     }
   }, []);
 
