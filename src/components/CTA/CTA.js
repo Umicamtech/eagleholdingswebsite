@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./CTA.module.css";
 
 export default function CTA() {
@@ -14,13 +15,10 @@ export default function CTA() {
             Engage with our strategic advisory team to navigate complex capital requirements and secure definitive outcomes.
           </p>
           <div className={`${styles.actions} fade-in delay-3`}>
-            <button className={styles.primaryButton}>
+            <Link href="/contact" className={styles.primaryButton}>
               <span className={styles.buttonText}>Initiate Consultation</span>
               <span className={styles.buttonLine}></span>
-            </button>
-            <button className={styles.secondaryButton}>
-              View Track Record
-            </button>
+            </Link>
           </div>
         </div>
       </div>

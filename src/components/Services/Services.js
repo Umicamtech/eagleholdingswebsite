@@ -57,7 +57,7 @@ export default function Services() {
 
   return (
     // sectionRef on the outer tall element - this is what creates the scroll space
-    <section ref={sectionRef} className={styles.servicesSection}>
+    <section id="capabilities" ref={sectionRef} className={styles.servicesSection}>
 
       {/* pinContainer sticks to viewport and shows the animated content */}
       <div className={styles.pinContainer}>

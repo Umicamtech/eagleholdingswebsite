@@ -1,6 +1,15 @@
+'use client';
+
 import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const scrollToCapabilities = () => {
+    const section = document.getElementById('capabilities');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className={styles.hero}>
       <div className={styles.videoWrapper}>
@@ -28,7 +37,7 @@ export default function Hero() {
               Leading public infrastructure development, private enterprise, and comprehensive global mobility.
             </p>
             <div className={`${styles.actions} fade-in delay-3`}>
-              <button className={styles.primaryAction}>
+              <button className={styles.primaryAction} onClick={scrollToCapabilities}>
                 <span className={styles.buttonText}>Explore Capabilities</span>
                 <span className={styles.buttonLine}></span>
               </button>
