@@ -25,16 +25,15 @@ export default function ContactPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const altchaRef = useRef(null);
 
-  // Dynamically load the Altcha web component (it's a custom element)
+  // Load the Altcha web component from CDN (no npm package needed)
   useEffect(() => {
-    import('altcha-lib/dist/altcha.js').catch(() => {
-      // Fallback: load from CDN if local import fails
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js';
-      script.type = 'module';
-      script.async = true;
-      document.head.appendChild(script);
-    });
+    if (document.querySelector('script[data-altcha]')) return;
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/altcha/dist/altcha.min.js';
+    script.type = 'module';
+    script.async = true;
+    script.dataset.altcha = 'true';
+    document.head.appendChild(script);
   }, []);
 
   const handleChange = (e) => {

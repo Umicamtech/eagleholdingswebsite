@@ -1,20 +1,31 @@
 // src/app/api/altcha/route.js
-// Serves fresh ALTCHA proof-of-work challenges to the browser widget
+// Serves fresh ALTCHA proof-of-work challenges using Node built-in crypto — no npm package needed.
 
-import { createChallenge } from 'altcha-lib';
+import { createHmac, randomBytes } from 'crypto';
 
-const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET;
+const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET || 'dev-secret-change-in-production';
+const MAX_NUMBER = 100000; // PoW difficulty — increase to slow down bots further
+
+function createChallenge() {
+  const salt = randomBytes(12).toString('hex');
+  const number = Math.floor(Math.random() * MAX_NUMBER);
+  const algorithm = 'SHA-256';
+  const challenge = createHmac('sha256', HMAC_SECRET)
+    .update(`${salt}${number}`)
+    .digest('hex');
+  const signature = createHmac('sha256', HMAC_SECRET)
+    .update(challenge)
+    .digest('hex');
+
+  return {
+    algorithm,
+    challenge,
+    maxnumber: MAX_NUMBER,
+    salt,
+    signature,
+  };
+}
 
 export async function GET() {
-  if (!HMAC_SECRET) {
-    return Response.json({ error: 'Server misconfiguration' }, { status: 500 });
-  }
-
-  const challenge = await createChallenge({
-    hmacKey: HMAC_SECRET,
-    maxNumber: 100000, // difficulty — higher = harder for bots
-    expires: new Date(Date.now() + 10 * 60 * 1000), // 10-minute expiry
-  });
-
-  return Response.json(challenge);
+  return Response.json(createChallenge());
 }

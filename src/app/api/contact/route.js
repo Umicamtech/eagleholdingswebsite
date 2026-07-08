@@ -1,92 +1,93 @@
 // src/app/api/contact/route.js
-// Verifies Altcha CAPTCHA solution, then sends the inquiry via Resend
+// Verifies the Altcha CAPTCHA solution (using Node built-in crypto),
+// then dispatches the inquiry email.
+//
+// EMAIL SETUP: Replace the sendEmail() stub below with your preferred provider
+// (e.g. SendGrid, Mailgun, AWS SES, Nodemailer + SMTP, etc.)
 
-import { verifySolution } from 'altcha-lib';
-import { Resend } from 'resend';
+import { createHmac } from 'crypto';
 
-const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET;
-const resend = new Resend(process.env.RESEND_API_KEY);
+const HMAC_SECRET = process.env.ALTCHA_HMAC_SECRET || 'dev-secret-change-in-production';
 
-const TO_EMAIL   = 'office@eagleholdings-ph.com';
-const CC_EMAIL   = 'james.amattey@eagleholdings-ph.com';
-const FROM_EMAIL = 'noreply@eagleholdings-ph.com'; // must be a verified Resend domain
+// ─── Altcha verification (pure crypto — no npm package) ─────────────────────
+function verifyAltcha(payload) {
+  try {
+    const decoded = JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+    const { algorithm, challenge, number, salt, signature } = decoded;
 
+    if (algorithm !== 'SHA-256') return false;
+
+    // Re-derive the expected challenge and signature
+    const expectedChallenge = createHmac('sha256', HMAC_SECRET)
+      .update(`${salt}${number}`)
+      .digest('hex');
+
+    const expectedSignature = createHmac('sha256', HMAC_SECRET)
+      .update(expectedChallenge)
+      .digest('hex');
+
+    return challenge === expectedChallenge && signature === expectedSignature;
+  } catch {
+    return false;
+  }
+}
+
+// ─── Email sender stub — replace with your email provider ───────────────────
+async function sendEmail({ name, organization, email, phone, inquiryType, message }) {
+  // TODO: Integrate your email provider here.
+  // The submission details are all available in the parameters above.
+  //
+  // Example with Nodemailer (npm install nodemailer):
+  //
+  //   const nodemailer = require('nodemailer');
+  //   const transporter = nodemailer.createTransport({ /* SMTP config */ });
+  //   await transporter.sendMail({
+  //     from: 'noreply@eagleholdings-ph.com',
+  //     to: 'office@eagleholdings-ph.com',
+  //     cc: 'james.amattey@eagleholdings-ph.com',
+  //     replyTo: email,
+  //     subject: `[Eagle Holdings] New Inquiry — ${inquiryType}`,
+  //     html: `... your HTML body ...`,
+  //   });
+
+  console.log('📧 New contact submission (email not yet configured):', {
+    name, organization, email, phone, inquiryType,
+    message: message.substring(0, 80) + '...',
+  });
+
+  // Remove this line once a real email provider is wired in:
+  return { ok: true };
+}
+
+// ─── POST handler ────────────────────────────────────────────────────────────
 export async function POST(request) {
   try {
     const body = await request.json();
     const { name, organization, email, phone, inquiryType, message, altcha } = body;
 
-    // ── 1. Server-side Altcha verification ──────────────────────────────────
-    if (!altcha) {
-      return Response.json({ error: 'CAPTCHA verification required.' }, { status: 400 });
+    // 1. Verify CAPTCHA
+    if (!altcha || !verifyAltcha(altcha)) {
+      return Response.json(
+        { error: 'Security check failed. Please refresh and try again.' },
+        { status: 400 }
+      );
     }
 
-    const isValid = await verifySolution(altcha, HMAC_SECRET);
-    if (!isValid) {
-      return Response.json({ error: 'CAPTCHA verification failed. Please try again.' }, { status: 400 });
-    }
-
-    // ── 2. Basic field validation ────────────────────────────────────────────
+    // 2. Basic validation
     if (!name || !email || !inquiryType || !message) {
-      return Response.json({ error: 'Please fill in all required fields.' }, { status: 400 });
+      return Response.json(
+        { error: 'Please fill in all required fields.' },
+        { status: 400 }
+      );
     }
 
-    // ── 3. Send email via Resend ─────────────────────────────────────────────
-    const { error } = await resend.emails.send({
-      from: FROM_EMAIL,
-      to:   [TO_EMAIL],
-      cc:   [CC_EMAIL],
-      replyTo: email,
-      subject: `[Eagle Holdings] New Inquiry — ${inquiryType}`,
-      html: `
-        <div style="font-family: 'Georgia', serif; max-width: 640px; margin: 0 auto; color: #1a1a1a;">
-          <div style="border-bottom: 2px solid #A88C3A; padding-bottom: 16px; margin-bottom: 32px;">
-            <h1 style="font-size: 22px; color: #A88C3A; margin: 0;">Eagle Holdings</h1>
-            <p style="margin: 4px 0 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #666;">
-              New Consultation Request
-            </p>
-          </div>
-
-          <table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.7;">
-            <tr>
-              <td style="padding: 8px 0; color: #888; width: 160px; vertical-align: top;">Full Name</td>
-              <td style="padding: 8px 0; font-weight: 600;">${name}</td>
-            </tr>
-            ${organization ? `
-            <tr>
-              <td style="padding: 8px 0; color: #888; vertical-align: top;">Organization</td>
-              <td style="padding: 8px 0;">${organization}</td>
-            </tr>` : ''}
-            <tr>
-              <td style="padding: 8px 0; color: #888; vertical-align: top;">Email</td>
-              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #A88C3A;">${email}</a></td>
-            </tr>
-            ${phone ? `
-            <tr>
-              <td style="padding: 8px 0; color: #888; vertical-align: top;">Phone</td>
-              <td style="padding: 8px 0;">${phone}</td>
-            </tr>` : ''}
-            <tr>
-              <td style="padding: 8px 0; color: #888; vertical-align: top;">Area of Inquiry</td>
-              <td style="padding: 8px 0; font-style: italic;">${inquiryType}</td>
-            </tr>
-          </table>
-
-          <div style="margin-top: 32px; border-top: 1px solid #e5e5e5; padding-top: 24px;">
-            <p style="color: #888; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 12px;">Message</p>
-            <p style="font-size: 15px; line-height: 1.8; white-space: pre-wrap; margin: 0;">${message}</p>
-          </div>
-
-          <div style="margin-top: 48px; padding-top: 16px; border-top: 1px solid #e5e5e5; color: #aaa; font-size: 12px;">
-            Submitted via eagleholdings-ph.com contact form · ${new Date().toUTCString()}
-          </div>
-        </div>
-      `,
-    });
-
-    if (error) {
-      console.error('Resend error:', error);
-      return Response.json({ error: 'Failed to send message. Please try again later.' }, { status: 500 });
+    // 3. Send email
+    const result = await sendEmail({ name, organization, email, phone, inquiryType, message });
+    if (!result.ok) {
+      return Response.json(
+        { error: 'Failed to send your message. Please try again later.' },
+        { status: 500 }
+      );
     }
 
     return Response.json({ success: true });
