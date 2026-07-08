@@ -1,0 +1,264 @@
+/* ==========================================
+   Contact Page — page.module.css
+   ========================================== */
+
+.main {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+/* ─── Hero strip ─── */
+.heroStrip {
+  position: relative;
+  background-color: var(--obsidian);
+  padding: 180px var(--spacing-xl) 100px;
+  overflow: hidden;
+}
+
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--bg-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-faint) 1px, transparent 1px);
+  background-size: 100px 100px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.bgGrid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, transparent 30%, var(--obsidian) 80%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.goldLine {
+  width: 2px;
+  height: 60px;
+  background: var(--gold);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: 0 0 12px rgba(168, 140, 58, 0.5);
+}
+
+.pageTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  color: var(--white);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: var(--spacing-lg);
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--platinum);
+  opacity: 0.65;
+  max-width: 560px;
+}
+
+/* ─── Form section ─── */
+.formSection {
+  padding: 80px 0 120px;
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+/* ─── Form ─── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-faint);
+  padding: 14px 0;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.input::placeholder {
+  color: var(--foreground);
+  opacity: 0.3;
+}
+
+.input:focus {
+  border-bottom-color: var(--gold);
+}
+
+.select {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+/* Style the select dropdown arrow */
+.select option {
+  background-color: var(--obsidian);
+  color: var(--white);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.7;
+}
+
+/* ─── Form footer ─── */
+.formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-very-faint);
+}
+
+.disclaimer {
+  font-size: 0.82rem;
+  color: var(--foreground);
+  opacity: 0.4;
+  font-style: italic;
+}
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.btnLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.submitBtn:hover .btnLine {
+  width: 70px;
+}
+
+.submitBtn:hover {
+  color: var(--accent-gold);
+}
+
+/* ─── Success state ─── */
+.successState {
+  text-align: center;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.successIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--gold);
+  box-shadow: 0 0 30px rgba(168, 140, 58, 0.2);
+}
+
+.successTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.successText {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--foreground);
+  opacity: 0.6;
+  max-width: 480px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .heroStrip {
+    padding: 140px var(--spacing-md) 60px;
+  }
+
+  .heroContent {
+    padding: 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .formFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
