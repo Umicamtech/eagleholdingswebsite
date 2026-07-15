@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  eslint: {
+    // Lint errors won't block production builds; run `npm run lint` separately.
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

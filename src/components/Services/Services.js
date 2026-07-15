@@ -35,7 +35,7 @@ export default function Services() {
             <h3 className={styles.cardTitle}>{service.title}</h3>
             <p className={styles.cardBody}>{service.body}</p>
             <ul className={styles.featureList}>
-              {service.features.map((feature, i) => (
+              {service.features?.map((feature, i) => (
                 <li key={i} className={styles.featureItem}>
                   <span className={styles.checkIcon}>✦</span> {feature}
                 </li>

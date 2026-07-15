@@ -16,7 +16,7 @@ export default function ContactPage() {
           <div className={styles.content}>
             <h1 className={styles.title}>Get in Touch</h1>
             <p className={styles.subtitle}>
-              Whether you're interested in a partnership, seeking strategic advisory, or have a general inquiry, our team is ready to assist you.
+              Whether you&apos;re interested in a partnership, seeking strategic advisory, or have a general inquiry, our team is ready to assist you.
             </p>
             
             <form className={styles.form}>

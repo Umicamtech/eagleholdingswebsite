@@ -67,7 +67,7 @@ export default function RequestCredentials() {
       const secureRef = 'EHG-' + Math.random().toString(36).substring(2, 10).toUpperCase();
       setRefNumber(secureRef);
       setStatus('success');
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   };
