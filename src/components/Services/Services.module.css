@@ -291,7 +291,9 @@
   }
 
   .headerLine {
-    display: none; /* Hide decorative line on very small screens to save vertical space */
+    display: block;
+    height: 30px;
+    margin-bottom: var(--spacing-sm);
   }
 
   .inner {
