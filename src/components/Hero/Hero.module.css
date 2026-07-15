@@ -178,8 +178,12 @@
 }
 
 @media (max-width: 1024px) {
+  .contentGrid {
+    display: flex;
+    flex-direction: column;
+  }
   .textContent {
-    grid-column: 1 / span 12;
+    width: 100%;
   }
 }
 
