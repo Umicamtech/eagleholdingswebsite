@@ -112,7 +112,7 @@
 }
 
 html {
-  overflow-x: clip; /* clip instead of hidden — does NOT create a scroll container, so sticky works */
+  /* overflow-x: clip breaks position: sticky in many browsers. Handle horizontal overflow carefully elsewhere. */
 }
 
 body {
