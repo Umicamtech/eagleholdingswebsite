@@ -287,13 +287,17 @@
 
 @media (max-width: 768px) {
   .pinContainer {
-    padding-top: 90px;
+    padding-top: 80px;
   }
 
   .headerLine {
     display: block;
-    height: 30px;
-    margin-bottom: var(--spacing-sm);
+    height: 60px;
+    margin-bottom: 4px;
+  }
+  
+  .sectionTitle {
+    margin-bottom: 4px;
   }
 
   .inner {
@@ -317,6 +321,6 @@
   }
   
   .cardStack {
-    height: 60vh; /* Give more relative space to cards on mobile */
+    height: 55vh;
   }
 }
