@@ -255,11 +255,21 @@
 @media (max-width: 1024px) {
   .inner {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
   }
 
   .sidePanel {
-    padding-top: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+  }
+  
+  .headerLine {
+    height: 40px;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .sectionTitle {
+    margin-bottom: var(--spacing-md);
+    font-size: clamp(2.2rem, 6vw, 3rem);
   }
 
   .sectionSubtitle {
@@ -271,16 +281,40 @@
   }
 
   .cardStack {
-    height: 50vh;
+    height: 55vh;
   }
 }
 
 @media (max-width: 768px) {
+  .pinContainer {
+    padding-top: 90px;
+  }
+
+  .headerLine {
+    display: none; /* Hide decorative line on very small screens to save vertical space */
+  }
+
   .inner {
     padding: 0 var(--spacing-md);
+    gap: var(--spacing-sm);
   }
 
   .cardContent {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
+  }
+  
+  .cardTitle {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .cardText {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .cardStack {
+    height: 60vh; /* Give more relative space to cards on mobile */
   }
 }
