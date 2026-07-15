@@ -1,4 +1,4 @@
-'use client';
+'use client'; // DEVELOPER NOTE: Required because we use React state (useState) to manage the mobile hamburger menu open/close status.
 
 import { useState } from 'react';
 import Image from "next/image";
@@ -7,6 +7,7 @@ import styles from "./Header.module.css";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 export default function Header() {
+  // State for tracking if the mobile dropdown menu is currently visible
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {

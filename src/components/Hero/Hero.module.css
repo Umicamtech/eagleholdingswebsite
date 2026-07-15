@@ -177,6 +177,13 @@
   to { transform: scale(1.15); }
 }
 
+/* 
+ * DEVELOPER NOTE: MOBILE RESPONSIVENESS
+ * On tablets and mobile screens, we abandon the 12-column grid. 
+ * If we kept it, the gap values would compound across all 12 columns, 
+ * secretly creating a layout over 700px wide and causing horizontal overflow. 
+ * We switch to a simple flex column here to ensure the text wraps correctly.
+ */
 @media (max-width: 1024px) {
   .contentGrid {
     display: flex;

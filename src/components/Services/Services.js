@@ -1,5 +1,14 @@
 'use client';
 
+/* 
+ * DEVELOPER NOTE: SCROLL ANIMATION ARCHITECTURE
+ * This component uses a CSS `position: sticky` approach to trigger scroll animations without heavy JS libraries.
+ * 1. The outer `.servicesSection` is very tall (e.g., 200vh). This provides "scroll runway".
+ * 2. The inner `.pinContainer` is 100vh tall and `position: sticky`. It locks to the screen while the user scrolls through the remaining 100vh of the outer section.
+ * 3. The `useEffect` below tracks how far the user has scrolled *into* the runway and calculates a `progress` decimal (0.0 to 1.0).
+ * 4. We use this `progress` value to translate the cards up from below the screen (`translateY`).
+ */
+
 import { useRef, useEffect, useState } from 'react';
 import styles from "./Services.module.css";
 

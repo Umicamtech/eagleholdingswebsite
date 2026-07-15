@@ -168,6 +168,12 @@
   opacity: 1;
 }
 
+/* 
+ * DEVELOPER NOTE: MOBILE RESPONSIVENESS
+ * At 768px, we switch to the mobile layout.
+ * The .desktopNav links are hidden, and the .hamburger button is displayed.
+ * The .mobileNav container is rendered below the header, animating its max-height when opened.
+ */
 @media (max-width: 768px) {
   .container {
     padding: var(--spacing-sm) var(--spacing-md);
@@ -188,7 +194,7 @@
   }
   
   .desktopNav {
-    display: none;
+    display: none; /* Hide standard links on mobile */
   }
   
   .hamburger {

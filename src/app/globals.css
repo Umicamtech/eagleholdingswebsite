@@ -111,9 +111,13 @@
   margin: 0;
 }
 
-html {
-  /* overflow-x: clip breaks position: sticky in many browsers. Handle horizontal overflow carefully elsewhere. */
-}
+/* 
+ * DEVELOPER NOTE: 
+ * Do NOT use `overflow-x: hidden` or `overflow-x: clip` on the html or body tags!
+ * Doing so will completely break `position: sticky` on child elements (like the .pinContainer in Services).
+ * If you need to handle horizontal overflow, apply `overflow: hidden` to specific wrapper sections 
+ * (e.g. .hero, .footer) instead of the root elements.
+ */
 
 body {
   max-width: 100vw;
