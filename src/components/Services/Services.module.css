@@ -22,38 +22,57 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem; /* More gap so they scroll up over each other noticeably */
+  max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  padding-bottom: 2rem;
 }
 
 .card {
+  position: sticky;
   background-color: var(--white);
-  padding: 2rem 1.75rem;
+  padding: 3rem 2.5rem;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
+  border-radius: 12px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  gap: 1.25rem;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.04);
+  transform-origin: top center;
+}
+
+/* Cascading top offsets for the stacked deck effect */
+.card:nth-child(1) {
+  top: calc(70px + 2rem); /* 70px header + 2rem padding */
+  z-index: 1;
+}
+
+.card:nth-child(2) {
+  top: calc(70px + 3rem);
+  z-index: 2;
+}
+
+.card:nth-child(3) {
+  top: calc(70px + 4rem);
+  z-index: 3;
 }
 
 .card:hover {
   border-color: var(--gold);
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .cardTitle {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   line-height: 1.35;
 }
 
 .cardBody {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.65;
   color: var(--platinum);
 }
@@ -62,30 +81,29 @@
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding-top: 0.5rem;
+  gap: 0.5rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .featureItem {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--obsidian);
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .checkIcon {
   color: var(--gold);
-  font-size: 0.85rem;
-  margin-top: 0.1rem;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
   flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 3rem;
   }
 }
 
@@ -99,11 +117,14 @@
   }
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .card {
-    padding: 1.5rem 1.25rem;
+    padding: 2rem 1.5rem;
   }
+  
+  .card:nth-child(1) { top: calc(70px + 1rem); }
+  .card:nth-child(2) { top: calc(70px + 2rem); }
+  .card:nth-child(3) { top: calc(70px + 3rem); }
 }
